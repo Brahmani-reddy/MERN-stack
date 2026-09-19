@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student SPA</title>
+</head>
+
+<body>
+
+    <h1>Student Management SPA</h1>
+
+    <h2>Add Student</h2>
+
+    <input type="text" id="name" placeholder="Enter name">
+    <input type="text" id="course" placeholder="Enter course">
+
+    <button onclick="addStudent()">Add Student</button>
+
+    <h2>Students</h2>
+
+    <button onclick="getStudents()">Load Students</button>
+
+    <ul id="studentList"></ul>
+
+
+    <script>
+
+        // READ
+        async function getStudents() {
+
+            const response = await fetch("/api/students");
+
+            const students = await response.json();
+
+            const list = document.getElementById("studentList");
+
+            list.innerHTML = "";
+
+            students.forEach(student => {
+
+                const item = document.createElement("li");
+
+                item.innerHTML =
+                    student.id + " - " +
+                    student.name + " - " +
+                    student.course +
+                    " <button onclick='deleteStudent(" +
+                    student.id +
+                    ")'>Delete</button>";
+
+                list.appendChild(item);
+            });
+        }
+
+
+        // CREATE
+        async function addStudent() {
+
+            const name = document.getElementById("name").value;
+            const course = document.getElementById("course").value;
+
+            await fetch("/api/students", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    name: name,
+                    course: course
+                })
+            });
+
+            document.getElementById("name").value = "";
+            document.getElementById("course").value = "";
+
+            getStudents();
+        }
+
+
+        // DELETE
+        async function deleteStudent(id) {
+
+            await fetch("/api/students/" + id, {
+                method: "DELETE"
+            });
+
+            getStudents();
+        }
+
+    </script>
+
+</body>
+</html>
