@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Server Side Rendering</title>
+</head>
+
+<body>
+
+    <h1>Server Side Rendering</h1>
+
+   // Configure Template Engine 
+    <h2>1. Configure Template Engine</h2>
+
+    <p>EJS Template Engine is configured successfully.</p>
+
+
+   //Render Dynamic Values
+    <h2>2. Render Dynamic Values</h2>
+
+    <p>Name: <%= name %></p>
+    <p>Course: <%= course %></p>
+    <p>Year: <%= year %></p>
+
+
+    // Accept Form Inputs
+    <h2>3. Accept Form Inputs</h2>
+
+    <form action="/submit" method="POST">
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+
+        <br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+
+        <br><br>
+
+        <button type="submit">Submit</button>
+
+    </form>
+
+
+    //Basic Validation
+    <h2>4. Basic Validation</h2>
+
+    <% if (error) { %>
+        <p><%= error %></p>
+    <% } %>
+
+
+</body>
+</html>
